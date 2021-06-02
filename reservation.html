@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HotRestaurant</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    
+  </head>
+
+  <body>
+    <div class="container">
+        <div class="jumbotron">
+          <h1><i class="fa fa-fire">Make Reservation</i></h1>
+          <h3>Make your reservation</h3>
+          <hr />
+          <a href="/viewtable">
+            <button class="btn btn-danger btn-lg">
+              <span class="fa fa-list-alt"></span> View Tables
+            </button>
+          </a>
+
+          <a href="/reservation">
+            <button class="btn btn-danger btn-lg">
+              <span class="fa fa-credit-card"></span> Home Page
+            </button>
+          </a>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">name</span>
+            <input id ="name" type="text" class="form-control">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">email</span>
+            <input id ="email" type="text" class="form-control">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">phone</span>
+            <input id ="phone" type="text" class="form-control">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">ID</span>
+            <input id ="id" type="text" class="form-control">
+          </div>
+          <a href="/api/characters">
+            <button id = "submit" class="btn btn-danger btn-lg">
+              <span>Submit</span> 
+            </button>
+          </a>
+<script>
+    const addBtn = document.getElementById("submit");
+
+// Question: What is "e" short for?
+submit.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // Question: What does this code do?
+  let name = document.getElementById("name").value.trim();
+  let email = document.getElementById("email").value.trim();
+  let phone = document.getElementById("phone").value.trim();
+  let ID = document.getElementById("id").value.trim();
+  console.log(name, email, phone, ID)
+
+  const newReservation = {
+    name: name,
+    email: email,
+    phone: phone,
+    id: id,
+  }
+
+  fetch("/api/table", {
+      
+      // Adding method type
+      method: "POST",
+        
+      // Adding body or contents to send
+      body: JSON.stringify(
+          newReservation
+      ),
+        
+      // Adding headers to the request
+      headers: {
+          "Content-type": "application/json; charset=UTF-8"
+      }
+  })
+    
+  // Converting to JSON
+  .then(response => response.json())
+    
+  // Displaying results to console
+  .then(json => console.log(json));
+});
+
+</script>
+  </body>
+</html>
